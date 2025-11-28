@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift of Giving - Christmas Charity Drive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 50%, #8b0000 100%);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated snowflakes */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 9999;
+            color: #fff;
+            font-size: 1em;
+            animation: fall linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Header */
+        header {
+            background: rgba(139, 0, 0, 0.9);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border-bottom: 4px solid #ffd700;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            color: #ffd700;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 0.5rem;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5), 0 0 20px #ffd700; }
+            50% { text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5), 0 0 40px #ffd700; }
+        }
+
+        header p {
+            font-size: 1.3rem;
+            color: #fff;
+            font-style: italic;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(26, 71, 42, 0.95);
+            padding: 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+            color: #ffd700;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background: #ffd700;
+            color: #1a472a;
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(rgba(139, 0, 0, 0.7), rgba(26, 71, 42, 0.7)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%231a472a" width="1200" height="600"/></svg>');
+            background-size: cover;
+            position: relative;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            background: #8b0000;
+            color: #ffd700;
+            padding: 1rem 3rem;
+            font-size: 1.3rem;
+            border: 3px solid #ffd700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #ffd700;
+            color: #8b0000;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 4rem 2rem;
+            background: rgba(45, 90, 61, 0.8);
+        }
+
+        .categories h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s;
+            cursor: pointer;
+            border: 4px solid #ffd700;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 4px solid #8b0000;
+        }
+
+        .category-content {
+            padding: 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
+        }
+
+        .category-content h3 {
+            color: #8b0000;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .category-content p {
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .donate-btn {
+            background: #1a472a;
+            color: #ffd700;
+            padding: 0.7rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid #ffd700;
+        }
+
+        .donate-btn:hover {
+            background: #ffd700;
+            color: #1a472a;
+            transform: scale(1.05);
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 4rem 2rem;
+            background: rgba(139, 0, 0, 0.8);
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ffd700;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border: 3px solid #ffd700;
+        }
+
+        .step-number {
+            background: #1a472a;
+            color: #ffd700;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+            border: 3px solid #ffd700;
+        }
+
+        .step h3 {
+            color: #8b0000;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .step p {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Impact Counter */
+        .impact {
+            padding: 3rem 2rem;
+            background: rgba(26, 71, 42, 0.9);
+            text-align: center;
+        }
+
+        .impact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #ffd700;
+        }
+
+        .counters {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+
+        .counter {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            min-width: 200px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border: 3px solid #ffd700;
+        }
+
+        .counter-number {
+            font-size: 3rem;
+            color: #8b0000;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .counter-label {
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            text-align: center;
+            border-top: 4px solid #ffd700;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .social-links a {
+            color: #ffd700;
+            margin: 0 1rem;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+            transform: scale(1.2);
+            display: inline-block;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
+            margin: 5% auto;
+            padding: 2rem;
+            border: 5px solid #ffd700;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .close {
+            color: #8b0000;
+            float: right;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close:hover {
+            color: #1a472a;
+            transform: scale(1.2);
+        }
+
+        .modal h2 {
+            color: #8b0000;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .modal form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal input,
+        .modal textarea,
+        .modal select {
+            padding: 1rem;
+            border: 2px solid #1a472a;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .modal input:focus,
+        .modal textarea:focus,
+        .modal select:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .modal button[type="submit"] {
+            background: #8b0000;
+            color: #ffd700;
+            padding: 1rem;
+            border: 3px solid #ffd700;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal button[type="submit"]:hover {
+            background: #ffd700;
+            color: #8b0000;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                flex-direction: column;
+            }
+
+            nav a {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Snowflakes -->
+    <div id="snowflakes-container"></div>
+
+    <!-- Header -->
+    <header>
+        <h1>🎄 Gift of Giving 🎁</h1>
+        <p>Spreading Christmas Joy Through Kindness</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#categories">Donate Items</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#impact">Our Impact</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h2>✨ Share the Spirit of Christmas ✨</h2>
+        <p>
+            This holiday season, make a difference in someone's life. Your unused items can bring warmth, 
+            joy, and hope to families in need. Join our community of generous donors and help us spread 
+            Christmas cheer to those who need it most.
+        </p>
+        <a href="#categories" class="cta-button">Start Donating Today</a>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <h2>🎅 What Can You Donate? 🎅</h2>
+        <div class="category-grid">
+            <!-- Toys -->
+            <div class="category-card" data-category="Toys">
+                <img src="https://i.postimg.cc/qzzhddVQ/toys.jpg" alt="Toys" class="category-image">
+                <div class="category-content">
+                    <h3>🧸 Toys</h3>
+                    <p>Bring smiles to children's faces this Christmas. Donate gently used toys, games, and stuffed animals.</p>
+                    <button class="donate-btn" onclick="openModal('Toys')">Donate Toys</button>
+                </div>
+            </div>
+
+            <!-- Clothes -->
+            <div class="category-card" data-category="Clothes">
+                <img src="https://i.postimg.cc/F1nzpndp/clothes.jpg" alt="Clothes" class="category-image">
+                <div class="category-content">
+                    <h3>👕 Clothes</h3>
+                    <p>Keep families warm this winter. Donate clothing for all ages and sizes to those in need.</p>
+                    <button class="donate-btn" onclick="openModal('Clothes')">Donate Clothes</button>
+                </div>
+            </div>
+
+            <!-- Shoes -->
+            <div class="category-card" data-category="Shoes">
+                <img src="https://i.postimg.cc/6479Ft20/shoes.jpg" alt="Shoes" class="category-image">
+                <div class="category-content">
+                    <h3>👟 Shoes</h3>
+                    <p>Every step matters. Donate shoes in good condition to help people walk with dignity.</p>
+                    <button class="donate-btn" onclick="openModal('Shoes')">Donate Shoes</button>
+                </div>
+            </div>
+
+            <!-- Bags -->
+            <div class="category-card" data-category="Bags">
+                <img src="https://i.postimg.cc/tZJyVp5Q/bags.jpg" alt="Bags" class="category-image">
+                <div class="category-content">
+                    <h3>👜 Bags</h3>
+                    <p>Handbags, backpacks, and luggage can make a real difference. Share your unused bags.</p>
+                    <button class="donate-btn" onclick="openModal('Bags')">Donate Bags</button>
+                </div>
+            </div>
+
+            <!-- Electronics -->
+            <div class="category-card" data-category="Electronics">
+                <img src="https://i.postimg.cc/1g51Lsbf/electronics.jpg" alt="Electronics" class="category-image">
+                <div class="category-content">
+                    <h3>📱 Electronics</h3>
+                    <p>Connect lives through technology. Donate working electronics like phones, tablets, and laptops.</p>
+                    <button class="donate-btn" onclick="openModal('Electronics')">Donate Electronics</button>
+                </div>
+            </div>
+
+            <!-- Books -->
+            <div class="category-card" data-category="Books">
+                <img src="https://i.postimg.cc/GHF0t4CY/books.jpg" alt="Books" class="category-image">
+                <div class="category-content">
+                    <h3>📚 Books</h3>
+                    <p>Open doors to new worlds. Donate books and help foster a love of reading and learning.</p>
+                    <button class="donate-btn" onclick="openModal('Books')">Donate Books</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <h2>🎁 How It Works 🎁</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Choose Category</h3>
+                <p>Select what type of items you'd like to donate from our categories above.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Fill the Form</h3>
+                <p>Provide details about your donation and your contact information.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>We Collect</h3>
+                <p>Our team will arrange a convenient pickup time or you can drop off at our center.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Make Impact</h3>
+                <p>Your items are distributed to families in need, bringing joy this Christmas season.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact" id="impact">
+        <h2>🌟 Our Christmas Impact 🌟</h2>
+        <div class="counters">
+            <div class="counter">
+                <div class="counter-number" data-target="5420">0</div>
+                <div class="counter-label">Items Donated</div>
+            </div>
+            <div class="counter">
+                <div class="counter-number" data-target="1250">0</div>
+                <div class="counter-label">Families Helped</div>
+            </div>
+            <div class="counter">
+                <div class="counter-number" data-target="890">0</div>
+                <div class="counter-label">Active Donors</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <p>🎄 Gift of Giving - Making Christmas Magical for Everyone 🎄</p>
+        <p>📧 contact@giftofgiving.org | 📞 1-800-GIVE-JOY</p>
+        <div class="social-links">
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Twitter">🐦</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="LinkedIn">💼</a>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">© 2024 Gift of Giving. All rights reserved.</p>
+    </footer>
+
+    <!-- Donation Modal -->
+    <div id="donationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>🎁 Donation Form</h2>
+            <form id="donationForm" onsubmit="submitDonation(event)">
+                <input type="text" id="donorName" placeholder="Your Name *" required>
+                <input type="email" id="donorEmail" placeholder="Your Email *" required>
+                <input type="tel" id="donorPhone" placeholder="Your Phone Number *" required>
+                <input type="text" id="donorAddress" placeholder="Your Address *" required>
+                
+                <select id="category" required>
+                    <option value="">Select Category *</option>
+                    <option value="Toys">Toys</option>
+                    <option value="Clothes">Clothes</option>
+                    <option value="Shoes">Shoes</option>
+                    <option value="Bags">Bags</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Books">Books</option>
+                </select>
+                
+                <textarea id="itemDescription" rows="4" placeholder="Describe your donation (condition, quantity, etc.) *" required></textarea>
+                
+                <select id="pickupMethod" required>
+                    <option value="">Pickup or Drop-off? *</option>
+                    <option value="pickup">Pickup from my address</option>
+                    <option value="dropoff">I'll drop off at collection center</option>
+                </select>
+                
+                <button type="submit">Submit Donation 🎅</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Snowflakes animation
+        function createSnowflakes() {
+            const container = document.getElementById('snowflakes-container');
+            const snowflakeCount = 50;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = '❄';
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                container.appendChild(snowflake);
+            }
+        }
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter-number');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const increment = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 10);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // Intersection Observer for counter animation
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const impactSection = document.querySelector('.impact');
+        observer.observe(impactSection);
+
+        // Modal functions
+        function openModal(category) {
+            const modal = document.getElementById('donationModal');
+            const categorySelect = document.getElementById('category');
+            modal.style.display = 'block';
+            categorySelect.value = category;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('donationModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('donationModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Form submission
+        function submitDonation(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('donorName').value,
+                email: document.getElementById('donorEmail').value,
+                phone: document.getElementById('donorPhone').value,
+                address: document.getElementById('donorAddress').value,
+                category: document.getElementById('category').value,
+                description: document.getElementById('itemDescription').value,
+                pickupMethod: document.getElementById('pickupMethod').value
+            };
+
+            // Here you would typically send the data to a server
+            console.log('Donation submitted:', formData);
+            
+            alert('🎄 Thank you for your generous donation! Our team will contact you within 24 hours to arrange the details. Merry Christmas! 🎅');
+            
+            document.getElementById('donationForm').reset();
+            closeModal();
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize snowflakes on load
+        window.addEventListener('load', createSnowflakes);
+
+        // Add floating animation to category cards
+        document.querySelectorAll('.category-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>
